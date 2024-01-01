@@ -44,8 +44,7 @@ async def _download_song(loop, url):
 
 async def _play_songs(loop, queue):
     while True:
-        reader = await queue.get()
-        if reader is None:
+        if (reader := await queue.get()) is None:
             break
         proc = await _start_player(loop, reader)
         await proc.wait()
